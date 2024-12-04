@@ -107,7 +107,7 @@ class MovieSessionListSerializer(MovieSessionSerializer):
         if movie.image:
             return movie.image
         else:
-            return None  #
+            return movie.image.url
 
 
 class TicketSerializer(serializers.ModelSerializer):

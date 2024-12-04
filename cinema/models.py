@@ -39,10 +39,10 @@ class Actor(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-def movie_image_path(instance: "Movie", filename: str) -> pathlib.Path:
+def movie_image_path(instance: "Movie", filename: str) -> str:
     ext = pathlib.Path(filename).suffix
     filename = f"{slugify(instance.title)}-{uuid.uuid4()}{ext}"
-    return pathlib.Path("upload/movies") / filename
+    return str(pathlib.Path("upload/movies") / filename)
 
 
 class Movie(models.Model):
@@ -105,10 +105,7 @@ class Ticket(models.Model):
             if not (1 <= ticket_attr_value <= count_attrs):
                 raise error_to_raise(
                     {
-                        ticket_attr_name: f"{ticket_attr_name} "
-                                          f"number must be in available range:"
-                                          f"(1, {cinema_hall_attr_name}): "
-                                          f"(1, {count_attrs})"
+                        ticket_attr_name: f"Number must be in the available range: (1, {cinema_hall_attr_name}) to (1, {count_attrs})"
                     }
                 )
 

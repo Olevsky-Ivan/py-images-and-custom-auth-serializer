@@ -7,7 +7,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import (
     IsAuthenticated,
-    IsAdminOrIfAuthenticatedReadOnly  # Тільки один імпорт
+    IsAdminOrIfAuthenticatedReadOnly
 )
 from rest_framework.viewsets import GenericViewSet, ReadOnlyModelViewSet
 from rest_framework.decorators import action
@@ -117,7 +117,7 @@ class MovieViewSet(
     )
     def upload_image(self, request, pk=None):
         movie = self.get_object()
-        serializer = MovieSerializer(movie, data=request.data)
+        serializer = MovieImageSerializer(movie, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
